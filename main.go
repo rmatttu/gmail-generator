@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"io"
 	"log"
 	"net/url"
 	"os"
@@ -82,8 +83,36 @@ func open(url string, execPath string, options ...string) error {
 	return exec.Command(execPath, args...).Start()
 }
 
+func fileExists(filename string) bool {
+	_, err := os.Stat(filename)
+	return err == nil
+}
+
+func copyFile(srcName string, dstName string) {
+	src, err := os.Open(srcName)
+	if err != nil {
+		panic(err)
+	}
+	defer src.Close()
+
+	dst, err := os.Create(dstName)
+	if err != nil {
+		panic(err)
+	}
+	defer dst.Close()
+
+	_, err = io.Copy(dst, src)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func loadConfigForYaml() (*config, error) {
-	f, err := os.Open("local.yml")
+	target := "local.yml"
+	if !fileExists(target) {
+		copyFile("default.yml", target)
+	}
+	f, err := os.Open(target)
 	if err != nil {
 		log.Fatal("loadConfigForYaml os.Open err:", err)
 		return nil, err
