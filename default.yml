@@ -1,0 +1,38 @@
+browser:
+  openBrowser: true
+  openDefaultBrowser: true
+
+  # macOS
+  # path: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+  # Windows
+  path: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+
+  option: ""
+template:
+  -
+    name: main
+    endpoint: https://mail.google.com/mail/u/2
+    replacement:
+      -
+        replaceTarget: ___DATETIME___
+        method: DATETIME
+        option: "2006-01-02"
+      -
+        replaceTarget: ___DATETIME_JP___
+        method: DATETIME
+        option: "2006年1月2日"
+    to: to@example.com, to2@example.com, mailing-list@example.com
+    cc: cc@example.com
+    bcc: ""
+    subject: 業務日報(〇〇) ___DATETIME___
+    body: |
+      関係各位
+      以下、本日、___DATETIME_JP___の日報です。
+        * ああああ
+        * いいいい
+      絵文字　�
+
+      以上
+
+      -- 
+      署名

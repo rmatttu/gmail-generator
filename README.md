@@ -4,6 +4,10 @@ Gmailで、メールを新規作成するURLを生成します
 
 ## Usage
 
+* `default.yml` をコピー
+* コピーしたファイルを`local.yml`にリネーム
+* `gmail-generator` を起動する
+
 ## Requirements
 
 ## Installation
