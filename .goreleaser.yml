@@ -7,6 +7,10 @@ before:
 builds:
   - main: .
     binary: git-bump
+    goos:
+      - linux
+      - darwin
+      - windows
     ldflags:
       - -s -w
       - -X main.Version={{.Version}}
