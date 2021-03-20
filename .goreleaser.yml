@@ -1,4 +1,4 @@
-project_name: main
+project_name: gmail-generator
 env:
   - GO111MODULE=on
 before:
