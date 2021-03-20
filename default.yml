@@ -1,6 +1,6 @@
 browser:
   openBrowser: true
-  openDefaultBrowser: true
+  customBrowserPath: false
 
   # macOS
   # path: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome

@@ -14,10 +14,10 @@ import (
 )
 
 type browser struct {
-	OpenBrowser        bool `yaml:"openBrowser"`
-	OpenDefaultBrowser bool `yaml:"openDefaultBrowser"`
-	Path               string
-	Option             string
+	OpenBrowser       bool `yaml:"openBrowser"`
+	CustomBrowserPath bool `yaml:"customBrowserPath"`
+	Path              string
+	Option            string
 }
 
 type replacementData struct {
@@ -137,12 +137,12 @@ func main() {
 	}
 
 	err = nil
-	if cfg.Browser.OpenDefaultBrowser {
-		log.Print("openDefaultBrowser")
-		err = openDefaultBrowser(u.String())
-	} else {
+	if cfg.Browser.CustomBrowserPath {
 		log.Print("openCustomPath")
 		err = open(u.String(), cfg.Browser.Path, cfg.Browser.Option)
+	} else {
+		log.Print("openDefaultBrowser")
+		err = openDefaultBrowser(u.String())
 	}
 	if err != nil {
 		log.Fatal("Failed open browser:", err)
