@@ -6,7 +6,7 @@ before:
     - go mod tidy
 builds:
   - main: .
-    binary: git-bump
+    binary: gmail-generator
     goos:
       - linux
       - darwin
