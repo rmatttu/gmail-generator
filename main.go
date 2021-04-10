@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"io"
 	"log"
 	"net/url"
 	"os"
@@ -37,29 +36,22 @@ func fileExists(filename string) bool {
 	return err == nil
 }
 
-func copyFile(srcName string, dstName string) {
-	src, err := os.Open(srcName)
+func outputDefaultConfig(filename string) (*config.Config, error) {
+	defaultCfg := config.Default()
+	writer, err := os.Create(filename)
 	if err != nil {
-		panic(err)
+		log.Fatal("outputDefaultConfig os.Open err:", err)
+		return nil, err
 	}
-	defer src.Close()
-
-	dst, err := os.Create(dstName)
-	if err != nil {
-		panic(err)
-	}
-	defer dst.Close()
-
-	_, err = io.Copy(dst, src)
-	if err != nil {
-		panic(err)
-	}
+	err = yaml.NewEncoder(writer).Encode(defaultCfg)
+	return &defaultCfg, err
 }
 
 func loadConfigForYaml() (*config.Config, error) {
 	target := "local.yml"
 	if !fileExists(target) {
-		copyFile("default.yml", target)
+		defaultCfg, err := outputDefaultConfig(target)
+		return defaultCfg, err
 	}
 	f, err := os.Open(target)
 	if err != nil {
