@@ -30,6 +30,5 @@ archives:
         format: zip
     files:
       - README.md
-      - default.yml
 release:
   prerelease: auto
