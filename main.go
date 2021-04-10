@@ -48,7 +48,7 @@ func outputDefaultConfig(filename string) (*config.Config, error) {
 }
 
 func loadConfigForYaml() (*config.Config, error) {
-	target := "local.yml"
+	target := "config.yml"
 	if !fileExists(target) {
 		defaultCfg, err := outputDefaultConfig(target)
 		return defaultCfg, err
