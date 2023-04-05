@@ -113,7 +113,7 @@ func main() {
 	u.RawQuery = q.Encode()
 	log.Print(u.String())
 
-	if (!cfg.Browser.OpenBrowser) || *args.Dryrun {
+	if *args.Dryrun {
 		os.Exit(0)
 	}
 

@@ -7,7 +7,6 @@ import (
 )
 
 type Browser struct {
-	OpenBrowser       bool `yaml:"openBrowser"`
 	CustomBrowserPath bool `yaml:"customBrowserPath"`
 	Path              string
 	Option            string
@@ -70,7 +69,6 @@ func Default() Config {
 	}
 
 	browser := Browser{
-		OpenBrowser:       true,
 		CustomBrowserPath: false,
 		Path:              path,
 		Option:            "",
