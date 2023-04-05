@@ -83,7 +83,6 @@ func main() {
 		log.Fatal("loadConfigForYaml os.Open err:", err)
 		panic(err)
 	}
-	log.Print(cfg)
 
 	mainTemplate := cfg.Template[*args.Template]
 	subject := mainTemplate.Subject
