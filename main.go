@@ -18,6 +18,7 @@ import (
 // Args is commandline args
 type Args struct {
 	Template *int
+	Dryrun   *bool
 }
 
 func openDefaultBrowser(url string) error {
@@ -74,6 +75,7 @@ func loadConfigForYaml() (*config.Config, error) {
 func main() {
 	var args Args
 	args.Template = flag.Int("template", 0, "Using template index")
+	args.Dryrun = flag.Bool("dryrun", false, "Log output only")
 	flag.Parse()
 
 	cfg, err := loadConfigForYaml()
@@ -112,7 +114,7 @@ func main() {
 	u.RawQuery = q.Encode()
 	log.Print(u.String())
 
-	if !cfg.Browser.OpenBrowser {
+	if (!cfg.Browser.OpenBrowser) || *args.Dryrun {
 		os.Exit(0)
 	}
 
