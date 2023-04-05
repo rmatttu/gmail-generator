@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"flag"
 	"log"
 	"net/url"
 	"os"
@@ -13,6 +14,11 @@ import (
 
 	config "gmail-generator/datastore"
 )
+
+// Args is commandline args
+type Args struct {
+	Template *int
+}
 
 func openDefaultBrowser(url string) error {
 	switch runtime.GOOS {
@@ -66,6 +72,10 @@ func loadConfigForYaml() (*config.Config, error) {
 }
 
 func main() {
+	var args Args
+	args.Template = flag.Int("template", 0, "Using template index")
+	flag.Parse()
+
 	cfg, err := loadConfigForYaml()
 	if err != nil {
 		log.Fatal("loadConfigForYaml os.Open err:", err)
@@ -73,7 +83,7 @@ func main() {
 	}
 	log.Print(cfg)
 
-	mainTemplate := cfg.Template[0]
+	mainTemplate := cfg.Template[*args.Template]
 	subject := mainTemplate.Subject
 	body := mainTemplate.Body
 	for _, targetVariable := range mainTemplate.Replacement {
